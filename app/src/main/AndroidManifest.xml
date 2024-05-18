@@ -22,26 +22,20 @@
         android:theme="@style/Theme.Esp_v3"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".SettingsActivity" />
 
         <activity
-            android:name=".ReachableDevices"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".CommandsActivity" />
 
         <activity
-            android:name=".SendImage"/>
+            android:name=".ReachableDevices"/>
+
 
         <activity
-            android:name=".SendImageActivity"/>
+            android:name=".SendImageAct"/>
 
         <activity
-            android:name=".SendImageAct"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".WifiScannerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".WifiScannerActivity" />
 
         <activity
             android:name=".MainActivity"

@@ -23,7 +23,6 @@ import java.nio.ByteBuffer
 
 
 class MainActivity : AppCompatActivity() {
-    private var active: Boolean = false
     private lateinit var binding: ActivityMainBinding
     private val status:MutableLiveData<String> = MutableLiveData("")
 
@@ -35,14 +34,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        status.observe(this, Observer {
-                newValue ->
-                binding.textView.text = newValue
-        })
-
-
         binding.button.setOnClickListener{
-                active = true
                 CoroutineScope(IO).launch{
                     client()
                 }
@@ -53,6 +45,11 @@ class MainActivity : AppCompatActivity() {
                 sendText()
             }
         }
+
+        status.observe(this, Observer {
+                newValue ->
+            binding.textView.text = newValue
+        })
     }
 
 
@@ -77,15 +74,16 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun sendText(){
 
-        val address = binding.setAddress.getText().toString() //get address from EditText view
-        val portStr = binding.setPort.getText().toString()    //get port from EditText view
-        val port = Integer.valueOf(portStr)
-        val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
-
+        status.postValue("IP NOT FOUND\n__________________________")
         var connection =  Socket()
 
         try {
-            withContext(IO) {
+
+                val address = binding.setAddress.getText().toString() //get address from EditText view
+                val portStr = binding.setPort.getText().toString()    //get port from EditText view
+                val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
+                val port = Integer.valueOf(portStr)
+
                 connection = Socket(address, port)
 
                 val writer: OutputStream = connection.getOutputStream()
@@ -95,19 +93,16 @@ class MainActivity : AppCompatActivity() {
                 writer.write("SIZE".toByteArray())
                 writer.write(ByteBuffer.allocate(4).putInt(myText.length).array())
                 writer.write("DATA".toByteArray())
-
                 writer.write(myText.toByteArray())
-                writer.write(0)
 
                 val reader = connection.getInputStream()
                 val response = reader.readBytes().toString(Charsets.UTF_8)
-                status.postValue("Text below sent to ESP32:\n$myText\nRESPONSE IS:\n$response")
+                val post = "Text below sent to ESP32:\n$myText\nRESPONSE IS:\n$response"
+                status.postValue(post)
 
                 reader.close()
                 writer.close()
                 connection.close()
-                active = false
-            }
         }
         catch (e: SocketException) {
 
@@ -149,18 +144,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     private suspend fun client(){
-
         val address = binding.setAddress.getText().toString() //get address from EditText view
-        val portStr = binding.setPort.getText().toString()    //get port from EditText view
-        val port = Integer.valueOf(portStr)
-
         status.postValue("IP NOT FOUND\n__________________________")
 
         var connection =  Socket()
 
         try {
+            val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
+            val portStr = binding.setPort.getText().toString()    //get port from EditText view
+            val port = Integer.valueOf(portStr)
             connection = Socket(address, port)
 
             val writer: OutputStream = connection.getOutputStream()
@@ -169,7 +162,6 @@ class MainActivity : AppCompatActivity() {
 
             val reader = connection.getInputStream()
             val response = reader.readBytes().toString(Charsets.UTF_8)
-            status.postValue(response)
 
             val firstRN = response.indexOf("\r\n")
 
@@ -181,7 +173,6 @@ class MainActivity : AppCompatActivity() {
                     val length = response.substring(firstRN + 2, secondRN).toInt()
                     val body = response.substring(secondRN + 2, secondRN + 2 + length)
 
-                    status.postValue(length.toString())
                     status.postValue(body)
 
                 }
@@ -190,7 +181,6 @@ class MainActivity : AppCompatActivity() {
             reader.close()
             writer.close()
             connection.close()
-            active = false
         }
         catch (e: SocketException) {
             runOnUiThread {

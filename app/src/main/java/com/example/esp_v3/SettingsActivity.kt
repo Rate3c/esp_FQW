@@ -25,35 +25,7 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = getString(R.string.title_settings)
 
-        /*api_button.setOnClickListener {
-            val address : String? = preferences.address()
-            dialog = DialogUtils.dialogEditText(this@SettingsActivity, getString(R.string.pref_address), address!!,
-                object : DialogTextView.ViewListener {
-                    override fun onTextChange(value: String?) {
-                        if(!TextUtils.isEmpty(value)) {
-                            preferences.address(value!!)
-                            api_text.text = preferences.address()
-                        }
-                    }
-                    override fun onCancel() {
-                        dialog?.dismiss()
-                    }
-                })
-        }
-        password_button.setOnClickListener {
-            val password : String? = preferences.password()
-            dialog = DialogUtils.dialogPasswordText(this@SettingsActivity, getString(R.string.pref_password), password!!,
-                object : DialogTextView.ViewListener {
-                    override fun onTextChange(value: String?) {
-                        if(!TextUtils.isEmpty(value)) {
-                            preferences.password(value!!)
-                        }
-                    }
-                    override fun onCancel() {
-                        dialog?.dismiss()
-                    }
-                })
-        }*/
+
         binding.wifiScan.setOnClickListener {
             val intent = Intent(this@SettingsActivity, WifiScannerActivity::class.java)
             startActivity(intent)
@@ -64,13 +36,13 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*binding.sendImageBut.setOnClickListener {
-            val intent = Intent(this@SettingsActivity, SendImageActivity::class.java)
-            startActivity(intent)
-        }*/
-
         binding.sendImageBut.setOnClickListener {
             val intent = Intent(this@SettingsActivity, SendImageAct::class.java)
+            startActivity(intent)
+        }
+
+        binding.sendCmds.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, CommandsActivity::class.java)
             startActivity(intent)
         }
     }

@@ -103,7 +103,7 @@ public class ReachableDevices extends AppCompatActivity {
                 String host = subnet + i;
 
                 try {
-                            InetAddress inetAddress = InetAddress.getByName(host);
+                    InetAddress inetAddress = InetAddress.getByName(host);
                     if (inetAddress.isReachable(timeout) &
                             (!inetAddress.toString().substring(1).equals(myIpAddress)) &
                             (!inetAddress.toString().substring(1).equals(routerAddress)))
@@ -122,11 +122,9 @@ public class ReachableDevices extends AppCompatActivity {
                         reader.read(arrayB, 0, 2);
                         String response = new String(arrayB, Charsets.UTF_8);
 
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                final Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
-                                toast.show();
-                            }
+                        runOnUiThread(() -> {
+                            final Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
+                            toast.show();
                         });
 
                         if ((arrayB[0] == ('O')) && (arrayB[1] == ('K'))) {

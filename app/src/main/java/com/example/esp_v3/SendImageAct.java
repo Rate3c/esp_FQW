@@ -1,26 +1,19 @@
 package com.example.esp_v3;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.esp_v3.databinding.ActivityMainBinding;
 import com.example.esp_v3.databinding.SendKokBinding;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -29,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 public class SendImageAct extends AppCompatActivity {
     Handler handler = new Handler();
@@ -74,11 +68,11 @@ public class SendImageAct extends AppCompatActivity {
                     InputStream imageStream = getContentResolver().openInputStream(imageUri);
                     Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                     binding.imageView1.setImageBitmap(selectedImage);
-
+                    selectedImage.setDensity(4);
                     //
 
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    selectedImage.compress(Bitmap.CompressFormat.PNG, 0, bos);
+                    selectedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
                     byte[] array = bos.toByteArray();
 
                     /*int size = selectedImage.getRowBytes() * selectedImage.getHeight();
@@ -147,8 +141,8 @@ public class SendImageAct extends AppCompatActivity {
             try {
 
                 String address = binding.setAddressIm.getText().toString(); //get address from EditText view
-                String portStr = binding.setPortIm.getText().toString();    //get port from EditText view
-                int port = Integer.parseInt(portStr);
+                int port = Integer.parseInt(binding.setPortIm.getText().toString());    //get port from EditText view
+                //int port = Integer.parseInt(portStr);
 
                 connection = new Socket(address, port);
 

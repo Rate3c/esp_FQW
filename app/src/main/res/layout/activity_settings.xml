@@ -10,13 +10,13 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/toolbarshape"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/settings_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -33,89 +33,31 @@
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
 
-            <TextView
-                style="@style/TextSmall.Green.Bold"
-                android:paddingLeft="16dp"
-                android:paddingStart="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pref_server" />
-
-            <LinearLayout
-                android:id="@+id/api_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/SettingsButtonStyle"
-                android:gravity="start"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextMedium"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pref_ssid" />
-
-                <TextView
-                    android:id="@+id/api_text"
-                    style="@style/TextMedium.SmallAction"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pref_address_description"/>
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="4dp"/>
-
-            <LinearLayout
-                android:id="@+id/password_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/SettingsButtonStyle"
-                android:gravity="start"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextMedium"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pref_password"/>
-
-                <TextView
-                    android:id="@+id/password_text"
-                    style="@style/TextMedium.SmallAction"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pref_password_description"/>
-
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/wifi_scan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/buttonshape"
                 style="@style/SettingsButtonStyle"
                 android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextMedium"
+                    style="@style/TextMedium.Bold"
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/scan"/>
+
+                <TextView
+                    android:id="@+id/scan_wifi_sub"
+                    style="@style/TextSmall"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/get_the_list_of_all_wifi_networks_around"/>
 
             </LinearLayout>
 
@@ -123,17 +65,28 @@
                 android:id="@+id/IPs_scan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonshape"
                 style="@style/SettingsButtonStyle"
                 android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextMedium"
+                    style="@style/TextMedium.Bold"
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Scan for IPs in network"/>
+                    android:text="@string/scan_for_ips_in_network"/>
+
+                <TextView
+                    android:id="@+id/scan_ip_sub"
+                    style="@style/TextSmall"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_subnet_and_scan_for_reachable_devices"/>
 
             </LinearLayout>
 
@@ -142,16 +95,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/SettingsButtonStyle"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonshape"
                 android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextMedium"
+                    style="@style/TextMedium.Bold"
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Send Image"/>
+
+                <TextView
+                    android:id="@+id/pick_image"
+                    style="@style/TextSmall"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pick_an_image_from_gallery"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sendCmds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SettingsButtonStyle"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonshape"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextMedium.Bold"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send Commands"/>
+
+                <TextView
+                    android:id="@+id/send_cmd_text"
+                    style="@style/TextSmall"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_a_command_to_send"/>
 
             </LinearLayout>
 
