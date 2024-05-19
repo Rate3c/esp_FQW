@@ -25,6 +25,9 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = getString(R.string.title_settings)
 
+        val bundle: Bundle? = intent.extras
+        val adress: String? = intent.getStringExtra("address")
+        val port: String? = intent.getStringExtra("port")
 
         binding.wifiScan.setOnClickListener {
             val intent = Intent(this@SettingsActivity, WifiScannerActivity::class.java)
@@ -38,11 +41,15 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.sendImageBut.setOnClickListener {
             val intent = Intent(this@SettingsActivity, SendImageAct::class.java)
+            intent.putExtra("address", adress)
+            intent.putExtra("port", port)
             startActivity(intent)
         }
 
         binding.sendCmds.setOnClickListener {
             val intent = Intent(this@SettingsActivity, CommandsActivity::class.java)
+            intent.putExtra("address", adress)
+            intent.putExtra("port", port)
             startActivity(intent)
         }
     }

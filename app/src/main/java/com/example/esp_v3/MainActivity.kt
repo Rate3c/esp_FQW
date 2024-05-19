@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.button.setOnClickListener{
-                CoroutineScope(IO).launch{
+
+            CoroutineScope(IO).launch{
                     client()
                 }
         }
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     SettingsActivity::class.java
                 )
+                myIntent.putExtra("address", binding.setAddress.text.toString())
+                myIntent.putExtra("port", binding.setPort.text.toString())
                 this@MainActivity.startActivity(myIntent)
                 true
             }
@@ -176,6 +179,10 @@ class MainActivity : AppCompatActivity() {
                     status.postValue(body)
 
                 }
+            }
+
+            runOnUiThread {
+                Toast.makeText(this@MainActivity, "Connection successful", Toast.LENGTH_SHORT).show();
             }
 
             reader.close()

@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class SendImageAct extends AppCompatActivity {
     Handler handler = new Handler();
+    private boolean invers = false;
     private SendKokBinding binding;
 
     @Override
@@ -34,6 +35,13 @@ public class SendImageAct extends AppCompatActivity {
         binding = SendKokBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.switch1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                invers = binding.switch1.isChecked();
+            }
+        });
+
         binding.buttonImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,12 +49,6 @@ public class SendImageAct extends AppCompatActivity {
             }
         });
 
-        binding.buttonImage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                send(2);
-            }
-        });
     }
 
     public void send(int req){
@@ -75,10 +77,6 @@ public class SendImageAct extends AppCompatActivity {
                     selectedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
                     byte[] array = bos.toByteArray();
 
-                    /*int size = selectedImage.getRowBytes() * selectedImage.getHeight();
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-                    selectedImage.copyPixelsToBuffer(byteBuffer);
-                    byte[] array1 = byteBuffer.array();*/
 
                     SendImageAct.SendImageClient sic = new SendImageAct.SendImageClient();
                     sic.execute(array);
@@ -133,6 +131,7 @@ public class SendImageAct extends AppCompatActivity {
     }
     public class SendImageClient extends AsyncTask<byte[], Void, Void> {
 
+
         @Override
         protected Void doInBackground(byte[]... voids) {
 
@@ -140,9 +139,9 @@ public class SendImageAct extends AppCompatActivity {
 
             try {
 
-                String address = binding.setAddressIm.getText().toString(); //get address from EditText view
-                int port = Integer.parseInt(binding.setPortIm.getText().toString());    //get port from EditText view
-                //int port = Integer.parseInt(portStr);
+                Intent intent_image = getIntent();
+                String address = intent_image.getStringExtra("address");
+                int port = Integer.parseInt(Objects.requireNonNull(intent_image.getStringExtra("port")));
 
                 connection = new Socket(address, port);
 
@@ -153,10 +152,11 @@ public class SendImageAct extends AppCompatActivity {
 
                 writer.write("IMGE".getBytes());
                 writer.write(ByteBuffer.allocate(4).putInt(4).array());
+                if (invers) writer.write("INVB".getBytes());
+                else writer.write("STUB".getBytes());
                 writer.write("SIZE".getBytes());
                 writer.write(ByteBuffer.allocate(4).putInt(output.length).array());
-                writer.write("FPNG".getBytes());
-                writer.write("DATA".getBytes());                //size
+                writer.write("DATA".getBytes());
                 writer.write(output, 0, output.length);     //image output
 
                 handler.post(() ->{
@@ -192,4 +192,5 @@ public class SendImageAct extends AppCompatActivity {
             return null;
         }
     }
+
 }
