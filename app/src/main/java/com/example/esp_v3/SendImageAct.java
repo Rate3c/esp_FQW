@@ -27,6 +27,7 @@ import java.util.Objects;
 public class SendImageAct extends AppCompatActivity {
     Handler handler = new Handler();
     private boolean invers = false;
+    private boolean colored = false;
     private SendKokBinding binding;
 
     @Override
@@ -39,6 +40,17 @@ public class SendImageAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 invers = binding.switch1.isChecked();
+            }
+        });
+
+        binding.switch2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (invers) {
+                    binding.switch1.toggle();
+                    invers = false;
+                }
+                colored = binding.switch2.isChecked();
             }
         });
 
@@ -152,8 +164,9 @@ public class SendImageAct extends AppCompatActivity {
 
                 writer.write("IMGE".getBytes());
                 writer.write(ByteBuffer.allocate(4).putInt(4).array());
-                if (invers) writer.write("INVB".getBytes());
-                else writer.write("STUB".getBytes());
+                if (colored) writer.write("SCLR".getBytes());           // send Colored image if checked
+                else if (invers) writer.write("INVB".getBytes());       // send Inversed W/B image if checked
+                else writer.write("STUB".getBytes());                   // send Straight  W/B image if unchecked
                 writer.write("SIZE".getBytes());
                 writer.write(ByteBuffer.allocate(4).putInt(output.length).array());
                 writer.write("DATA".getBytes());

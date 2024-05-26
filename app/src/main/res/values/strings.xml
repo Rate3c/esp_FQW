@@ -36,4 +36,12 @@
     <string name="silent_esp">Silent ESP</string>
     <string name="check_charge">Check charge</string>
     <string name="get_the_remaining_charge_of_the_device">Get the remaining charge of the device</string>
+    <string name="center_y">Center Y</string>
+    <string name="center_x">Center X</string>
+    <string name="transparent">Transparent</string>
+    <string name="white_text">White Text</string>
+    <string name="ip">IP:</string>
+    <string name="port">Port:</string>
+    <string name="invert_image">Invert Image</string>
+    <string name="colored_image">Colored Image</string>
 </resources>

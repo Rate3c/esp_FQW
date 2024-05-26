@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -19,13 +20,17 @@
         android:id="@+id/scanIP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Scan"
         android:background="@android:color/holo_purple"
         android:layout_below="@+id/scanTEXT"/>
 
     <EditText
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
         android:inputType="text"
         android:text="192.168.0.140"
         android:hint="Subnet"
@@ -35,18 +40,27 @@
 
     <EditText
         android:id="@+id/lower"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:hint="lower"
-        android:text="1"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/scanIP"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
         android:layout_toRightOf="@+id/subnet"
-        android:inputType="number"/>
+        android:background="@drawable/edittext1"
+        android:gravity="center"
+        android:hint="lower"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/subnet"
+        android:text="1" />
 
     <EditText
         android:id="@+id/upper"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
         android:hint="upper"
         android:text="255"
         android:layout_below="@+id/scanIP"
@@ -55,8 +69,12 @@
 
     <EditText
         android:id="@+id/timeout"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
         android:hint="timeout"
         android:text="100"
         android:layout_below="@+id/scanIP"

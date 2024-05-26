@@ -45,18 +45,20 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="15dp"
         android:textSize="30sp"
-        android:layout_marginBottom="300dp" />
+        android:layout_marginBottom="400dp" />
 
     <EditText
         android:id="@+id/setAddress"
-        android:layout_width="173dp"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="33dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="-250dp"
-        android:layout_marginEnd="218dp"
+        android:layout_marginEnd="235dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
         android:ems="10"
         android:hint="address"
         android:inputType="text"
@@ -65,32 +67,98 @@
     <EditText
         android:id="@+id/setPort"
         android:layout_width="173dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_below="@+id/setAddress"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="218dp"
+        android:layout_marginEnd="235dp"
+        android:gravity="center"
         android:ems="10"
         android:hint="port"
         android:inputType="text"
+        android:background="@drawable/edittext1"
         android:text="80" />
+
+    <TextView
+        android:id="@+id/ipText"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-247dp"
+        android:layout_marginEnd="-70dp"
+        android:layout_toStartOf="@+id/setAddress"
+        android:ems="10"
+        android:textSize="20sp"
+        android:text="@string/ip" />
+
+    <TextView
+        android:id="@+id/portText"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setAddress"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="-70dp"
+        android:layout_toStartOf="@+id/setPort"
+        android:ems="10"
+        android:textSize="20sp"
+        android:text="@string/port" />
 
     <EditText
         android:id="@+id/sendTextView"
         android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="209dp"
-        android:layout_marginTop="-200dp"
+        android:layout_marginTop="-350dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
         android:ems="10"
         android:hint="text"
         android:inputType="text"
         android:text="test" />
+
+    <EditText
+        android:id="@+id/sendPosX"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_below="@+id/sendTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="209dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="122dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
+        android:ems="10"
+        android:hint="POSX"
+        android:inputType="text"
+        android:text="0" />
+
+    <EditText
+        android:id="@+id/sendPosY"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_below="@+id/sendTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
+        android:ems="10"
+        android:hint="POSY"
+        android:inputType="text"
+        android:text="0" />
 
     <Button
         android:id="@+id/buttonSendText"
@@ -104,6 +172,50 @@
         android:layout_marginBottom="50dp"
         android:layout_weight="1"
         android:text="@string/send_text" />
+
+    <Switch
+        android:id="@+id/switchCntrX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sendPosX"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="110dp"
+        android:text="@string/center_x"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Switch
+        android:id="@+id/switchCntrY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sendPosY"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/center_y"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Switch
+        android:id="@+id/switchColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switchCntrX"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/white_text"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Switch
+        android:id="@+id/switchTransparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switchCntrX"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="110dp"
+        android:text="@string/transparent"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,6 @@ import com.example.esp_v3.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.OutputStream
 import java.net.Socket
@@ -25,7 +25,10 @@ import java.nio.ByteBuffer
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val status:MutableLiveData<String> = MutableLiveData("")
-
+    private var cntrX: Boolean = false
+    private var cntrY: Boolean = false
+    private var transpar: Boolean = false
+    private var white: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.switchCntrX.setOnClickListener(View.OnClickListener {
+            cntrX = binding.switchCntrX.isChecked()
+        })
+
+        binding.switchCntrY.setOnClickListener(View.OnClickListener {
+            cntrY = binding.switchCntrY.isChecked()
+        })
+
+        binding.switchTransparent.setOnClickListener(View.OnClickListener {
+            transpar = binding.switchTransparent.isChecked()
+        })
+
+        binding.switchColor.setOnClickListener(View.OnClickListener {
+            white = binding.switchColor.isChecked()
+        })
 
         binding.button.setOnClickListener{
 
@@ -77,24 +96,39 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun sendText(){
 
-        status.postValue("IP NOT FOUND\n__________________________")
+        status.postValue("IP NOT FOUND\n")
         var connection =  Socket()
 
         try {
 
-                val address = binding.setAddress.getText().toString() //get address from EditText view
-                val portStr = binding.setPort.getText().toString()    //get port from EditText view
+                val address1 = binding.setAddress.getText().toString() //get address from EditText view
+                val port1 = Integer.valueOf(binding.setPort.getText().toString()) //get port from EditText view
                 val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
-                val port = Integer.valueOf(portStr)
+                val posX = Integer.valueOf(binding.sendPosX.getText().toString()) //get posX from EditText view
+                val posY = Integer.valueOf(binding.sendPosY.getText().toString()) //get posY from EditText view
+                var args = 4
 
+                if (transpar) args+=1
+                if (white) args+=1
+
+                val address = binding.setAddress.getText().toString() //get address from EditText view
+                val port = Integer.valueOf(binding.setPort.getText().toString()) //get port from EditText view
                 connection = Socket(address, port)
 
                 val writer: OutputStream = connection.getOutputStream()
 
                 writer.write("TEXT".toByteArray())
-                writer.write(ByteBuffer.allocate(4).putInt(2).array())
+                writer.write(ByteBuffer.allocate(4).putInt(args).array())
                 writer.write("SIZE".toByteArray())
                 writer.write(ByteBuffer.allocate(4).putInt(myText.length).array())
+                writer.write("POSX".toByteArray())
+                if (cntrX) writer.write("CENT".toByteArray())
+                else writer.write(ByteBuffer.allocate(4).putInt(posX).array())
+                writer.write("POSY".toByteArray())
+                if (cntrY) writer.write("CENT".toByteArray())
+                else writer.write(ByteBuffer.allocate(4).putInt(posY).array())
+                if (transpar)  writer.write("TRSP".toByteArray())
+                if (white)  writer.write("WTXT".toByteArray())
                 writer.write("DATA".toByteArray())
                 writer.write(myText.toByteArray())
 
@@ -149,7 +183,7 @@ class MainActivity : AppCompatActivity() {
     }
     private suspend fun client(){
         val address = binding.setAddress.getText().toString() //get address from EditText view
-        status.postValue("IP NOT FOUND\n__________________________")
+        status.postValue("IP NOT FOUND\n")
 
         var connection =  Socket()
 
