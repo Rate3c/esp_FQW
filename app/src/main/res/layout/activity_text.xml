@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="420dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="30sp"
+        android:layout_marginBottom="400dp" />
+
+
+    <EditText
+        android:id="@+id/sendTextView"
+        android:layout_width="180dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/textViewText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="-360dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
+        android:ems="10"
+        android:hint="text"
+        android:inputType="text"
+        android:text="test" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sendTextView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        android:text="X:" />
+
+    <EditText
+        android:id="@+id/sendPosX"
+        android:layout_width="80dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/sendTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/textView2"
+        android:background="@drawable/edittext1"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="POSX"
+        android:inputType="text"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sendTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_toEndOf="@+id/sendPosX"
+        android:text="Y:" />
+
+    <EditText
+        android:id="@+id/sendPosY"
+        android:layout_width="80dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/sendTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:background="@drawable/edittext1"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="POSY"
+        android:inputType="text"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/buttonSendText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_weight="1"
+        android:text="@string/send_text" />
+
+    <Switch
+        android:id="@+id/switchCntrX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sendPosX"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/center_x"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Switch
+        android:id="@+id/switchCntrY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sendPosY"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/switchCntrX"
+        android:text="@string/center_y"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+    <Switch
+        android:id="@+id/switchTransparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switchCntrX"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/transparent"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Button
+        android:id="@+id/white_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/sendTextView"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="-80dp"
+        android:layout_toStartOf="@+id/black_button"
+        android:background="@drawable/button_white"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/black_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/sendTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_black"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/red_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/white_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_red"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/blue_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/white_button"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-80dp"
+        android:layout_toStartOf="@id/red_button"
+        android:background="@drawable/button_blue"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/green_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/red_button"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-80dp"
+        android:layout_toStartOf="@id/red_button"
+        android:background="@drawable/button_green"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/yellow_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/red_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_yellow"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/orange_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/yellow_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/button_orange"
+        app:backgroundTint="@null" />
+
+    <TextView
+        android:id="@+id/display_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonSendText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:text="Black text" />
+
+
+</RelativeLayout>

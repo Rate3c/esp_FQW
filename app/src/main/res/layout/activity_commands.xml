@@ -1,0 +1,166 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_comm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbarshape"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/commands_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/setAddress1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="30dp"
+        android:text="Select a command"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <LinearLayout
+        android:id="@+id/chargeInfo"
+        style="@style/SettingsButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginStart="10dp"
+        android:gravity="start"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/silent"
+        tools:layout_editor_absoluteX="-16dp">
+
+        <TextView
+            style="@style/TextMedium.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="@string/check_charge" />
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="@string/get_the_remaining_charge_of_the_device" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/setSleep"
+        style="@style/SettingsButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/buttonshape"
+        android:gravity="start"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/setAddress1"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            style="@style/TextMedium.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="Activity Time" />
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="Set sleep and activity time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/silent"
+        style="@style/SettingsButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/buttonshape"
+        android:gravity="start"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/setSleep"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            style="@style/TextMedium.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="@string/silent_esp" />
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="@string/send_command_to_mute_device" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/sleeptime"
+        android:layout_width="75dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/edittext1"
+        android:gravity="center"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="DSLP"
+        app:layout_constraintStart_toEndOf="@+id/setSleep"
+        app:layout_constraintTop_toBottomOf="@+id/setAddress1" />
+
+    <EditText
+        android:id="@+id/awaketime"
+        android:layout_width="75dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext1"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="AWKE"
+        app:layout_constraintStart_toEndOf="@+id/sleeptime"
+        app:layout_constraintTop_toBottomOf="@+id/setAddress1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
