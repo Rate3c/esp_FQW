@@ -46,6 +46,13 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.sendText.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, SendTextActivity::class.java)
+            intent.putExtra("address", adress)
+            intent.putExtra("port", port)
+            startActivity(intent)
+        }
+
         binding.sendCmds.setOnClickListener {
             val intent = Intent(this@SettingsActivity, CommandsActivity::class.java)
             intent.putExtra("address", adress)

@@ -25,10 +25,6 @@ import java.nio.ByteBuffer
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val status:MutableLiveData<String> = MutableLiveData("")
-    private var cntrX: Boolean = false
-    private var cntrY: Boolean = false
-    private var transpar: Boolean = false
-    private var white: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +33,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.switchCntrX.setOnClickListener(View.OnClickListener {
-            cntrX = binding.switchCntrX.isChecked()
-        })
-
-        binding.switchCntrY.setOnClickListener(View.OnClickListener {
-            cntrY = binding.switchCntrY.isChecked()
-        })
-
-        binding.switchTransparent.setOnClickListener(View.OnClickListener {
-            transpar = binding.switchTransparent.isChecked()
-        })
-
-        binding.switchColor.setOnClickListener(View.OnClickListener {
-            white = binding.switchColor.isChecked()
-        })
 
         binding.button.setOnClickListener{
 
@@ -60,11 +41,6 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        binding.buttonSendText.setOnClickListener{
-            CoroutineScope(IO).launch{
-                sendText()
-            }
-        }
 
         status.observe(this, Observer {
                 newValue ->
@@ -94,93 +70,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun sendText(){
-
-        status.postValue("IP NOT FOUND\n")
-        var connection =  Socket()
-
-        try {
-
-                val address1 = binding.setAddress.getText().toString() //get address from EditText view
-                val port1 = Integer.valueOf(binding.setPort.getText().toString()) //get port from EditText view
-                val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
-                val posX = Integer.valueOf(binding.sendPosX.getText().toString()) //get posX from EditText view
-                val posY = Integer.valueOf(binding.sendPosY.getText().toString()) //get posY from EditText view
-                var args = 4
-
-                if (transpar) args+=1
-                if (white) args+=1
-
-                val address = binding.setAddress.getText().toString() //get address from EditText view
-                val port = Integer.valueOf(binding.setPort.getText().toString()) //get port from EditText view
-                connection = Socket(address, port)
-
-                val writer: OutputStream = connection.getOutputStream()
-
-                writer.write("TEXT".toByteArray())
-                writer.write(ByteBuffer.allocate(4).putInt(args).array())
-                writer.write("SIZE".toByteArray())
-                writer.write(ByteBuffer.allocate(4).putInt(myText.length).array())
-                writer.write("POSX".toByteArray())
-                if (cntrX) writer.write("CENT".toByteArray())
-                else writer.write(ByteBuffer.allocate(4).putInt(posX).array())
-                writer.write("POSY".toByteArray())
-                if (cntrY) writer.write("CENT".toByteArray())
-                else writer.write(ByteBuffer.allocate(4).putInt(posY).array())
-                if (transpar)  writer.write("TRSP".toByteArray())
-                if (white)  writer.write("WTXT".toByteArray())
-                writer.write("DATA".toByteArray())
-                writer.write(myText.toByteArray())
-
-                val reader = connection.getInputStream()
-                val response = reader.readBytes().toString(Charsets.UTF_8)
-                val post = "Text below sent to ESP32:\n$myText\nRESPONSE IS:\n$response"
-                status.postValue(post)
-
-                reader.close()
-                writer.close()
-                connection.close()
-        }
-        catch (e: SocketException) {
-
-            connection.close()
-            /*runOnUiThread {
-                Toast.makeText(this@MainActivity, "Failed to connect to specified address", Toast.LENGTH_SHORT).show();
-            }*/
-
-            e.printStackTrace();
-            Log.e("AsyncTask", "Background Task: SocketException");
-        }
-        catch (e: UnknownHostException) {
-            connection.close();
-
-            runOnUiThread {
-                Toast.makeText(this@MainActivity, "Enter correct IP address", Toast.LENGTH_SHORT).show();
-            }
-            e.printStackTrace();
-            Log.e("AsyncTask", "Background Task: UnknownHostException");
-        }
-        catch (e: NumberFormatException) {
-            connection.close();
-
-            runOnUiThread {
-                Toast.makeText(this@MainActivity, "Enter correct IP address", Toast.LENGTH_SHORT).show();
-            }
-            e.printStackTrace();
-            Log.e("AsyncTask", "Background Task: UnknownHostException");
-        }
-        catch (e: IOException) {
-            connection.close();
-
-            runOnUiThread {
-                Toast.makeText(this@MainActivity, "Enter correct IP address", Toast.LENGTH_SHORT).show();
-            }
-
-            e.printStackTrace();
-            Log.e("AsyncTask", "Background Task: IOException");
-        }
-
-    }
     private suspend fun client(){
         val address = binding.setAddress.getText().toString() //get address from EditText view
         status.postValue("IP NOT FOUND\n")
@@ -188,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         var connection =  Socket()
 
         try {
-            val myText = binding.sendTextView.getText().toString() //get text to send from EditText view
             val portStr = binding.setPort.getText().toString()    //get port from EditText view
             val port = Integer.valueOf(portStr)
             connection = Socket(address, port)

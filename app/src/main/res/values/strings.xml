@@ -44,4 +44,6 @@
     <string name="port">Port:</string>
     <string name="invert_image">Invert Image</string>
     <string name="colored_image">Colored Image</string>
+    <string name="set_text_to_display">Set text to display</string>
+    <string name="send_text_com">Send Text</string>
 </resources>
